@@ -2,9 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const dotenv = require('dotenv')
+const cors = require('cors')
 
 const app = express();
 dotenv.config({path: './config.env'});
+app.use(cors());
+app.use(express.json());
 const PORT = process.env.PORT || 8000;
 const dbURL  = process.env.MONGODB_URI;
 
@@ -50,17 +53,16 @@ app.get('/characters', async (req, res) => {
    }
 });
 
-app.post('/characters', upload.single('image'), async (req, res) => {
-   try {
-      const { name, anime } = req.body;
-      const imageURL = req.file.buffer.toString('base64');
-      const character = new Character({ name, anime, imageURL });
-      await character.save();
-      res.json({ message: 'Personaje guardado correctamente' });
-   } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Error al guardar el personaje' });
-   }
+app.post('/characters', async (req, res) => {
+  try {
+    const { name, anime, imageURL } = req.body;
+    const newCharacter = new Character({ name, anime, imageURL });
+    await newCharacter.save();
+    res.status(201).json(newCharacter);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Iniciar el servidor
