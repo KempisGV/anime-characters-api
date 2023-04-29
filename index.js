@@ -1,22 +1,23 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
-const { v4: uuidv4 } = require('uuid');
+const dotenv = require('dotenv')
 
 const app = express();
+dotenv.config({path: './config.env'});
 const PORT = process.env.PORT || 8000;
-const dbURL  = process.env.MONGODB_URI;;
+const dbURL  = process.env.MONGODB_URI;
 
 // Configurar Multer para manejar la carga de imágenes
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // Conectar a la base de datos
-mongoose.connect(dbURL, {
-   useNewUrlParser: true,
-   useUnifiedTopology: true,
-   useCreateIndex: true,
-   useFindAndModify: false
+mongoose
+   .set("strictQuery", true)
+   .connect(dbURL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
 }).then(() => console.log('Conexión exitosa a MongoDB'))
   .catch(err => console.error('Error al conectar a MongoDB:', err));
 
