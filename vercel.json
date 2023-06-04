@@ -2,13 +2,13 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/index.js",
+      "src": "api/index.js",
       "use": "@vercel/node"
     }
   ],
   "crons": [
     {
-      "path": "/src/cron/cronjob.js",
+      "path": "/api/cronjob.js",
       "schedule": "*/2 * * * *"
     }
   ]

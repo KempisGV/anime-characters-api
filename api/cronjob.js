@@ -1,6 +1,6 @@
 const axios = require('axios');
 const mongoose = require('mongoose');
-const Character = require('../models/characterModel');
+const Character = require('./models/characterModel');
 
 // Conectar a la base de datos
 mongoose
@@ -56,14 +56,11 @@ async function updateCharacters() {
   }
 }
 
-// Ejecutar el cronjob cada 2 minutos :)
-setInterval(async () => {
-  try {
-    await updateCharacters();
-    console.log('Cronjob ejecutado con éxito');
-  } catch (error) {
-    console.error('Error al ejecutar el cronjob:', error);
-  }
-}, 2 * 60 * 1000); // 2 minutos en milisegundos
+try {
+  await updateCharacters();
+  console.log('Cronjob ejecutado con éxito');
+} catch (error) {
+  console.error('Error al ejecutar el cronjob:', error);
+}
 
 module.exports = updateCharacters;
