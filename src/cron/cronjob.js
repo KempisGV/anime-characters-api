@@ -56,7 +56,7 @@ async function updateCharacters() {
   }
 }
 
-// Ejecutar el cronjob cada 2 minutos
+// Ejecutar el cronjob cada 2 minutos :)
 setInterval(async () => {
   try {
     await updateCharacters();
