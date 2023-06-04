@@ -6,5 +6,10 @@
       "use": "@vercel/node"
     }
   ],
-  "cron": "*/2 * * * *"
+  "crons": [
+    {
+      "path": "./src/cron/cronjob.js",
+      "schedule": "*/2 * * * *"
+    }
+  ]
 }
