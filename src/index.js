@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const characterRoutes = require('./routes/characterRoutes');
-const cronjob = require('./cron/cronjob');
+// const cronjob = require('./cron/cronjob');
 
 const app = express();
 dotenv.config({ path: './config.env' });
@@ -31,4 +31,4 @@ app.listen(PORT, () => {
 });
 
 // Ejecutar el cronjob al hacer deploy en Vercel
-cronjob();
+// cronjob();
