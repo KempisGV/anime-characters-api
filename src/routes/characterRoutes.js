@@ -5,8 +5,10 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const characters = await Character.find();
-    res.json(characters);
+    const randomCharacters = await Character.aggregate([
+      { $sample: { size: 20 } },
+    ]);
+    res.json(randomCharacters);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error al obtener los personajes' });
