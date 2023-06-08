@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const characterRoutes = require('./routes/characterRoutes');
+const animeRoutes = require('./routes/animeRoutes');
 // const cronjob = require('./cron/cronjob');
 
 const app = express();
@@ -24,6 +25,7 @@ mongoose
 
 // Rutas de la API REST
 app.use('/characters', characterRoutes);
+app.use('/animes', animeRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {
