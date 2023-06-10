@@ -20,3 +20,6 @@ config.env
 # IDEs
 .vscode/
 .idea/
+
+# TEST
+local.js
