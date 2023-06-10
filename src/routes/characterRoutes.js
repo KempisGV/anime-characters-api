@@ -73,20 +73,16 @@ router.get('/search/:anime', async (req, res) => {
 
     const characters = await Character.find({ anime });
 
-    const charactersWithRandomQuotes = await Promise.all(
-      characters.map(async character => {
-        if (character.quotes && character.quotes.length > 0) {
-          const randomIndex = Math.floor(
-            Math.random() * character.quotes.length
-          );
-          character.quote = character.quotes[randomIndex].quote;
-        } else {
-          character.quote = 'No quote found 😓';
-        }
-        delete character.quotes;
-        return character;
-      })
-    );
+    const charactersWithRandomQuotes = characters.map(character => {
+      if (character.quotes && character.quotes.length > 0) {
+        const randomIndex = Math.floor(Math.random() * character.quotes.length);
+        character.quote = character.quotes[randomIndex].quote;
+      } else {
+        character.quote = 'No quote found 😓';
+      }
+      delete character.quotes;
+      return character;
+    });
 
     res.json(charactersWithRandomQuotes);
   } catch (err) {
